@@ -1,0 +1,46 @@
+.headerMenu{
+	box-shadow: 0 0px 10px 3px #888888;
+	height: 64px;
+	width: 1400px;
+	margin: auto;
+}
+
+.login{
+	float: left;
+	width: 120px;
+	height: 63px;
+	padding-left: 20px;
+	margin-left: 30px;
+}
+
+.index{
+	margin-left: 60px;
+}
+
+.shop{
+	float: right;
+	width: 120px;
+	height: 63px;
+	margin-right: 50px;
+}
+
+#shopIcon{
+	font-size: 40px;
+	margin-top: 10px;
+	float: left;
+}
+
+#shopText{
+	float: left;
+	width: 80px;
+	text-align: center;
+	font-size: 20px;
+	height: 63px;
+}
+
+#searcher{
+	height: 50px;
+	width: 350px;
+	float: left;
+	margin-left: 80px;
+}

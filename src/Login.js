@@ -1,8 +1,9 @@
 import React from 'react';
 import { Form, Icon, Input, Button, Checkbox} from 'antd';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import './Login.css';
-import { login } from './service';
+import { login } from './server';
+import cookie from 'react-cookies'
 
 const FormItem = Form.Item;
 
@@ -13,8 +14,10 @@ class LoginForm extends React.Component {
       if(!err){
         login(values).then(res => {
           var response = res.message;
+          var data={userName:values.username}
           if (response === "login success") {
             this.props.history.push('/home');
+            cookie.save('userName', data.userName, { path: '/' });
           }
         })
       }
@@ -56,4 +59,4 @@ class LoginForm extends React.Component {
   }
 }
 const Login = Form.create()(LoginForm)
-export default Login
+export default withRouter(Login)

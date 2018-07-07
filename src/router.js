@@ -3,7 +3,8 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-d
 import App from './App'
 import Question from './Question'
 import ShowQuestion from './ShowQuestion'
-import HomePage from './HomePage';
+import HomePage1 from './HomePage1';
+import HomePage2 from './HomePage2';
 import Classfication from './Classfication';
 import classDetail from'./ClassDetail'
 import Media from './Media'
@@ -13,13 +14,19 @@ import Register from './Register'
 import About from './About/About'
 import {BasedNewsCenter}   from './NewsCenter/index'
 import {ShoppingCart} from './ShoppingCart/shoppingcart'
+import {isLogin} from'./server'
 class Root extends Component {
   render() {
     return (
       <Router>
         <Switch>
           <Route path='/app' component={App}/>
-          <Route path='/home' component={HomePage}/>
+          <Route exact path='/home' render={(props)=>{
+          	if(!isLogin()){
+          		return <HomePage1 />
+          	}else{
+          		return <HomePage2 />
+          	}}} />
           <Route path='/questions' component={Question}/>
           <Route path='/showquestions' component={ShowQuestion}/>
           <Route path='/aboutus' component={About}/>
