@@ -7,16 +7,24 @@ const queryLessons = () => axios.get('/v1/lessons')
   .then(response => response.data)
   .catch(error => console.log(error));
   
+const queryDetails = params => axios.get('/v1/lessons'+params)
+	.then(response => response.data)
+  .catch(error => console.log(error));
+  
 const queryTeachers = () => axios.get('/v1/teachers')
   .then(response => response.data)
   .catch(error => console.log(error));
-  
+
+const queryUser = params => axios.get('/v1/user/'+params)
+.then(response => response.data)
+.catch(error => console.log(error));
+
 const login = (params) => axios.post('/v1/login',querystring.stringify(params))
   .then(response => response.data)
   .catch(error => console.log(error));
   
 const loginUser = () => {
-    return cookie.load('userName');
+    return cookie.load('userId');
 };
 
 const isLogin = () => {
@@ -24,4 +32,8 @@ const isLogin = () => {
     return typeof (user) === 'string';
 };
 
-export { queryLessons, queryTeachers, login, loginUser, isLogin };
+const postCart = (lessonID) => axios.post('/v1/shoppingcart/',{id:lessonID})
+	.then(response => response.data)
+	  .catch(error => console.log(error));
+
+export { queryLessons, queryDetails, queryTeachers, queryUser, login, loginUser, isLogin, postCart };
