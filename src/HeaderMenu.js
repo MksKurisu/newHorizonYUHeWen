@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Layout, Menu, Icon, Input, Button, Card} from 'antd';
 import { Link } from 'react-router-dom';
-import { loginUser, isLogin } from './server'
+import { queryUser, loginUser, isLogin } from './server'
 import './HeaderMenu.css'
 const { Header, Content, Sider, } = Layout;
 const Search = Input.Search;
@@ -10,7 +10,19 @@ const Item = Menu.Item;
 class HeaderMenu extends Component {
 	state = {
     current: 'index',
+    userInfo:[],
   }
+	
+	componentDidMount() {
+    var that = this;
+    that.getJsonData();
+   }
+	
+	getJsonData = () => {
+    queryUser(loginUser()).then(res => {
+      this.setState({userInfo:res.data})
+    });
+  	};
 	
 	handleClick = (e) => {
     console.log('click ', e);
@@ -23,7 +35,7 @@ class HeaderMenu extends Component {
   console.log(key);
   }
   	
-	render() {
+	render() {			
 		if(!isLogin()){
 			return (
 						<Menu
@@ -63,7 +75,7 @@ class HeaderMenu extends Component {
 					        	<div id="shopText">购物车</div>
 					        </div>
 					    </Menu>
-			);}else{
+			);}else{				
 				return (
 					<Menu
 					        onClick={this.handleClick}
@@ -73,7 +85,7 @@ class HeaderMenu extends Component {
 					      	theme="dark"
 					      	className="headerMenu">
 					      	<div className="login">
-					      		欢迎您 , { loginUser() }
+					      		欢迎您 , { this.state.userInfo.map((name,index) =>{return <p>{name.username}</p>}) }
 					      	</div>
 					      	<Menu.Item key="index" className="index">
 					          <Link to='/home'><Icon type="compass" />首页</Link>

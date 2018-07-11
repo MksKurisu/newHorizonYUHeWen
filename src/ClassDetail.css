@@ -41,6 +41,18 @@
 	font-weight: bold;
 }
 
+#addToShop{
+	float: right;
+	margin-top: 15px;
+	margin-right: 20px;
+}
+
+#toLive{
+	float: right;
+	margin-top: 15px;
+	margin-right: 20px;
+}
+
 #study{
 	float: right;
 	margin-top: 15px;

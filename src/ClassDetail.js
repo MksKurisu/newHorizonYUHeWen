@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import {Layout, Menu, Input, Button, List, Divider, Avatar, Steps} from 'antd';
 import { Link } from 'react-router-dom';
+import { queryUser, loginUser, postCart } from './server'
+import cookie from 'react-cookies'
 import HeaderMenu from './HeaderMenu'
 import './ClassDetail.css'
 const { Header, Content, Sider, } = Layout;
@@ -17,7 +19,41 @@ const data2 = [
 class classDetail extends Component {
 	
 	state={
-		current:''
+		current:'',
+		sInfo:[],
+	}
+	
+	watchLive = () => {
+		var url = "http://47.106.72.161:8080/web_live/live.html";
+		var studentInfo = this.state.sInfo;
+		console.log(studentInfo);
+		var sName = studentInfo[0].username;
+		var code = '388711';
+		window.open(url+"?username="+sName+"&code="+code);
+		var newWin = window.open(url+"?username="+sName+"&code="+code);
+		if(newWin = null){
+			alert("新建窗口失败")
+		}
+	}
+	
+	componentDidMount() {
+    var that = this;
+    that.getJsonData();
+   }
+	
+	getJsonData = () => {
+    queryUser(loginUser()).then(res => {
+      this.setState({sInfo:res.data})
+    });    
+  	};
+	
+	addToCart = () => {
+		postCart(this.props.location.data.id).then(res => {
+          var response = res.message;
+          if (response === "succeed") {
+            alert("添加成功")
+          }
+       })
 	}
 	
 	handleClick = (e) => {
@@ -31,7 +67,6 @@ class classDetail extends Component {
   console.log(key);
   }
   	render(){
-  		console.log(this.props.location.data)
   		return(
 		  	<Layout className="father">
 				<Header className="headerContainer" style={{height:'75px'}}>
@@ -51,7 +86,9 @@ class classDetail extends Component {
 							<div className="detailContent"><h2>时长:</h2></div>
 							<Divider className="divider"/>
 						</div>
-					    <Link to='./Media'><Button type="primary" size="large" id="study">开始学习</Button></Link>
+						<Link to='./Media'><Button type="primary" size="large" id="study">开始学习</Button></Link>						
+						<Button type="primary" size="large" id="toLive" onClick={this.watchLive}>观看直播</Button>
+						<Button type="primary" size="large" id="addToShop" onClick={this.addToCart}>加入购物车</Button>					    
 					</div>
 					<div className="Introduction">
 						<div className="classIntroduction">

@@ -17,7 +17,7 @@ class LoginForm extends React.Component {
           var data={userName:values.username}
           if (response === "login success") {
             this.props.history.push('/home');
-            cookie.save('userName', data.userName, { path: '/' });
+            cookie.save('userId', data.userName, { path: '/' });
           }
         })
       }
@@ -30,9 +30,9 @@ class LoginForm extends React.Component {
       <Form onSubmit={this.handleSubmit} className="login-form">
         <FormItem>
           {getFieldDecorator('username', {
-            rules: [{ required:true, message:'请输入用户名！'}],
+            rules: [{ required:true, message:'请输入注册的手机号！'}],
           })(
-            <Input prefix={<Icon type="user" style={{ color:'rgba(0,0,0,.25)'}}/>} placeholder="用户名"/>
+            <Input prefix={<Icon type="user" style={{ color:'rgba(0,0,0,.25)'}}/>} placeholder="请输入注册的手机号"/>
           )}
         </FormItem>
         <FormItem>
